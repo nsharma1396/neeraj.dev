@@ -17,7 +17,8 @@ export function Skills() {
           </Reveal>
           <Reveal delay={100}>
             <div className="flex flex-col gap-2">
-              {Object.entries(SKILL_CATEGORIES).map(
+              {/* Can add as a legend later */}
+              {/* {Object.entries(SKILL_CATEGORIES).map(
                 ([categoryName, categoryColor]) => (
                   <div key={categoryName} className="flex items-center gap-2.5">
                     <div
@@ -29,7 +30,7 @@ export function Skills() {
                     </span>
                   </div>
                 ),
-              )}
+              )} */}
             </div>
           </Reveal>
         </div>

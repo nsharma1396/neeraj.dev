@@ -159,6 +159,16 @@ body a {
   50% { opacity: 0.2; }
 }
 
+@keyframes radar-dot-reveal {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+@keyframes radar-label-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 input,
 textarea {
   color-scheme: dark;

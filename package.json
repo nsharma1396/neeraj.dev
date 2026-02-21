@@ -1,7 +1,6 @@
 {
-  "name": "my-portfolio",
-  "private": true,
-  "version": "0.0.0",
+  "name": "neeraj.dev",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,6 +13,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "d3": "^7.9.0",
+    "d3-shape": "^3.2.0",
     "lucide-react": "^0.574.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",

@@ -22,7 +22,7 @@ export type SkillCategoryName = "Frontend" | "Desktop" | "Backend" | "Infra";
 export interface Skill {
   label: string;
   value: number;
-  cat: SkillCategoryName;
+  category: SkillCategoryName;
 }
 
 export interface NavLinkItem {

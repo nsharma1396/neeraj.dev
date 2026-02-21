@@ -1,20 +1,146 @@
-import { useRef, useEffect, useState } from "react";
-import * as d3 from "d3";
+import { useRef, useEffect, useState, useMemo } from "react";
+import { lineRadial, curveLinearClosed } from "d3-shape";
 import { useTheme } from "../../context/ThemeContext";
 import { SKILLS, SKILL_CATEGORIES } from "../../constants";
 import type { Skill } from "../../types";
 
+const MAX_CHART_SIZE = 480;
+
+interface SkillPoint {
+  skill: Skill;
+  pointX: number;
+  pointY: number;
+  labelX: number;
+  labelY: number;
+  textAnchor: "start" | "middle" | "end";
+  categoryColor: string;
+  index: number;
+}
+
+interface RadarGeometry {
+  size: number;
+  centerX: number;
+  centerY: number;
+  innerRadius: number;
+  outerRadius: number;
+  gridRadii: number[];
+  spokes: { x1: number; y1: number; x2: number; y2: number }[];
+  pathD: string;
+  skillPoints: SkillPoint[];
+}
+
+function useContainerWidth(
+  ref: React.RefObject<HTMLDivElement | null>,
+): number {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (entry) setWidth(entry.contentRect.width);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref]);
+  return width;
+}
+
+function computeRadarGeometry(
+  containerWidth: number,
+  skills: Skill[],
+): RadarGeometry | null {
+  if (containerWidth <= 0 || skills.length === 0) return null;
+
+  const size = Math.min(containerWidth, MAX_CHART_SIZE);
+  const centerX = size / 2;
+  const centerY = size / 2;
+  const innerRadius = size * 0.17;
+  const outerRadius = size * 0.41;
+  const skillCount = skills.length;
+  const sliceAngle = (Math.PI * 2) / skillCount;
+
+  const gridRadii = [0.25, 0.5, 0.75, 1].map(
+    (factor) => innerRadius + (outerRadius - innerRadius) * factor,
+  );
+
+  const spokes = skills.map((_, index) => {
+    const angle = sliceAngle * index - Math.PI / 2;
+    return {
+      x1: centerX + Math.cos(angle) * innerRadius,
+      y1: centerY + Math.sin(angle) * innerRadius,
+      x2: centerX + Math.cos(angle) * outerRadius,
+      y2: centerY + Math.sin(angle) * outerRadius,
+    };
+  });
+
+  const lineRadialFn = lineRadial<Skill>()
+    .angle((_, index) => sliceAngle * index)
+    .radius(
+      (skill) =>
+        innerRadius + (outerRadius - innerRadius) * (skill.value / 100),
+    )
+    .curve(curveLinearClosed);
+
+  const pathD = lineRadialFn(skills) ?? "";
+
+  const skillPoints: SkillPoint[] = skills.map((skill, index) => {
+    const angle = sliceAngle * index - Math.PI / 2;
+    const radius =
+      innerRadius + (outerRadius - innerRadius) * (skill.value / 100);
+    const pointX = centerX + Math.cos(angle) * radius;
+    const pointY = centerY + Math.sin(angle) * radius;
+    const labelX = centerX + Math.cos(angle) * (outerRadius + 20);
+    const labelY = centerY + Math.sin(angle) * (outerRadius + 20);
+    const textAnchor: "start" | "middle" | "end" =
+      Math.cos(angle) > 0.1
+        ? "start"
+        : Math.cos(angle) < -0.1
+          ? "end"
+          : "middle";
+    return {
+      skill,
+      pointX,
+      pointY,
+      labelX,
+      labelY,
+      textAnchor,
+      categoryColor: SKILL_CATEGORIES[skill.category],
+      index,
+    };
+  });
+
+  return {
+    size,
+    centerX,
+    centerY,
+    innerRadius,
+    outerRadius,
+    gridRadii,
+    spokes,
+    pathD,
+    skillPoints,
+  };
+}
+
 export function RadarChart() {
   const { theme } = useTheme();
-  const svgRef = useRef<SVGSVGElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+  const containerWidth = useContainerWidth(wrapperRef);
   const [isInView, setIsInView] = useState(false);
   const [hoveredSkill, setHoveredSkill] = useState<Skill | null>(null);
+  const [pathLength, setPathLength] = useState<number | null>(null);
+  const [pathRevealed, setPathRevealed] = useState(false);
+
+  const geometry = useMemo(
+    () => computeRadarGeometry(containerWidth, SKILLS),
+    [containerWidth],
+  );
 
   useEffect(() => {
     const wrapperElement = wrapperRef.current;
     if (!wrapperElement) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => entry.isIntersecting && setIsInView(true),
       { threshold: 0.12 },
@@ -24,157 +150,139 @@ export function RadarChart() {
   }, []);
 
   useEffect(() => {
-    if (!isInView || !svgRef.current) return;
+    if (!isInView || !geometry || !pathRef.current) return;
+    const length = pathRef.current.getTotalLength();
+    pathRef.current.style.strokeDasharray = length.toString();
+    pathRef.current.style.strokeDashoffset = length.toString();
+    setTimeout(() => {
+      if (!pathRef.current) return;
+      pathRef.current.style.strokeDashoffset = "0";
+    }, 1000);
+  }, [isInView, geometry]);
 
-    const svgElement = svgRef.current;
-    const size = Math.min(svgElement.parentElement!.clientWidth, 480);
-    const centerX = size / 2;
-    const centerY = size / 2;
-    const innerRadius = size * 0.17;
-    const outerRadius = size * 0.41;
-    const skillCount = SKILLS.length;
-    const sliceAngle = (Math.PI * 2) / skillCount;
-
-    d3.select(svgElement).selectAll("*").remove();
-    const svg = d3
-      .select(svgElement)
-      .attr("width", size)
-      .attr("height", size)
-      .attr("viewBox", `0 0 ${size} ${size}`);
-
-    [0.25, 0.5, 0.75, 1].forEach((radiusFactor) =>
-      svg
-        .append("circle")
-        .attr("cx", centerX)
-        .attr("cy", centerY)
-        .attr("r", innerRadius + (outerRadius - innerRadius) * radiusFactor)
-        .attr("fill", "none")
-        .attr("stroke", "rgba(240,238,232,0.06)")
-        .attr("stroke-width", 1),
+  if (!geometry) {
+    return (
+      <div
+        ref={wrapperRef}
+        className="relative flex justify-center w-full max-w-[480px] min-h-[280px]"
+      />
     );
+  }
 
-    SKILLS.forEach((_, skillIndex) => {
-      const angle = sliceAngle * skillIndex - Math.PI / 2;
-      svg
-        .append("line")
-        .attr("x1", centerX + Math.cos(angle) * innerRadius)
-        .attr("y1", centerY + Math.sin(angle) * innerRadius)
-        .attr("x2", centerX + Math.cos(angle) * outerRadius)
-        .attr("y2", centerY + Math.sin(angle) * outerRadius)
-        .attr("stroke", "rgba(240,238,232,0.05)")
-        .attr("stroke-width", 1);
-    });
-
-    const path = svg
-      .append("path")
-      .datum(SKILLS)
-      .attr(
-        "d",
-        d3
-          .lineRadial<Skill>()
-          .angle((_, index) => sliceAngle * index)
-          .radius(
-            (skill) =>
-              innerRadius + (outerRadius - innerRadius) * (skill.value / 100),
-          )
-          .curve(d3.curveLinearClosed),
-      )
-      .attr("transform", `translate(${centerX},${centerY}) rotate(-90)`)
-      .attr("fill", `${theme.acc}18`)
-      .attr("stroke", theme.acc)
-      .attr("stroke-width", 1.8)
-      .attr("stroke-linejoin", "round");
-
-    const pathLength = path.node()!.getTotalLength();
-    path
-      .attr("stroke-dasharray", pathLength)
-      .attr("stroke-dashoffset", pathLength)
-      .transition()
-      .duration(1800)
-      .ease(d3.easeCubicOut)
-      .attr("stroke-dashoffset", 0);
-
-    SKILLS.forEach((skill, skillIndex) => {
-      const angle = sliceAngle * skillIndex - Math.PI / 2;
-      const radius =
-        innerRadius + (outerRadius - innerRadius) * (skill.value / 100);
-      const pointX = centerX + Math.cos(angle) * radius;
-      const pointY = centerY + Math.sin(angle) * radius;
-      const labelX = centerX + Math.cos(angle) * (outerRadius + 20);
-      const labelY = centerY + Math.sin(angle) * (outerRadius + 20);
-      const categoryColor = SKILL_CATEGORIES[skill.cat];
-
-      svg
-        .append("circle")
-        .attr("cx", pointX)
-        .attr("cy", pointY)
-        .attr("r", 0)
-        .attr("fill", categoryColor)
-        .attr("stroke", theme.bg)
-        .attr("stroke-width", 2)
-        .style("cursor", "pointer")
-        .transition()
-        .delay(900 + skillIndex * 65)
-        .duration(350)
-        .ease(d3.easeBackOut)
-        .attr("r", 5);
-
-      svg
-        .append("circle")
-        .attr("cx", pointX)
-        .attr("cy", pointY)
-        .attr("r", 14)
-        .attr("fill", "transparent")
-        .style("cursor", "pointer")
-        .on("mouseenter", () => setHoveredSkill(skill))
-        .on("mouseleave", () => setHoveredSkill(null));
-
-      const textAnchor =
-        Math.cos(angle) > 0.1
-          ? "start"
-          : Math.cos(angle) < -0.1
-            ? "end"
-            : "middle";
-      svg
-        .append("text")
-        .attr("x", labelX)
-        .attr("y", labelY + 4)
-        .attr("text-anchor", textAnchor)
-        .attr("font-family", "'Fira Code',monospace")
-        .attr("font-size", 9.5)
-        .attr("fill", "rgba(240,238,232,0.5)")
-        .attr("opacity", 0)
-        .text(skill.label)
-        .transition()
-        .delay(1000 + skillIndex * 65)
-        .duration(350)
-        .attr("opacity", 1);
-    });
-
-    const legendGroup = svg.append("g").attr("transform", "translate(10,10)");
-    Object.entries(SKILL_CATEGORIES).forEach(
-      ([categoryName, categoryColor], legendIndex) => {
-        legendGroup
-          .append("circle")
-          .attr("cx", 5)
-          .attr("cy", legendIndex * 17 + 5)
-          .attr("r", 4)
-          .attr("fill", categoryColor);
-        legendGroup
-          .append("text")
-          .attr("x", 14)
-          .attr("y", legendIndex * 17 + 9)
-          .attr("font-family", "'Fira Code',monospace")
-          .attr("font-size", 9)
-          .attr("fill", "rgba(240,238,232,0.4)")
-          .text(categoryName);
-      },
-    );
-  }, [isInView, theme.acc, theme.bg]);
+  const { size, centerX, centerY, gridRadii, spokes, pathD, skillPoints } =
+    geometry;
 
   return (
     <div ref={wrapperRef} className="relative flex justify-center">
-      <svg ref={svgRef} className="w-full max-w-[480px] overflow-visible" />
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        className="w-full max-w-[480px] overflow-visible"
+      >
+        {/* Grid circles */}
+        {gridRadii.map((radius) => (
+          <circle
+            key={radius}
+            cx={centerX}
+            cy={centerY}
+            r={radius}
+            fill="none"
+            stroke="rgba(240,238,232,0.06)"
+            strokeWidth={1}
+          />
+        ))}
+
+        {/* Spokes */}
+        {spokes.map((spoke, index) => (
+          <line
+            key={index}
+            x1={spoke.x1}
+            y1={spoke.y1}
+            x2={spoke.x2}
+            y2={spoke.y2}
+            stroke="rgba(240,238,232,0.05)"
+            strokeWidth={1}
+          />
+        ))}
+
+        {/* Skill polygon */}
+        {
+          <path
+            ref={pathRef}
+            d={pathD}
+            transform={`translate(${centerX},${centerY})`}
+            fill={`${theme.acc}18`}
+            stroke={theme.acc}
+            strokeWidth={1.8}
+            strokeLinejoin="round"
+            strokeDasharray={1111}
+            strokeDashoffset={1111}
+            style={{
+              transition:
+                "stroke-dashoffset 1.8s cubic-bezier(0.33, 0, 0.2, 1)",
+            }}
+          />
+        }
+
+        {/* Skill dots */}
+        {skillPoints.map(({ skill, pointX, pointY, categoryColor, index }) => (
+          <g key={skill.label}>
+            {/* <g
+              transform={`translate(${pointX},${pointY})`}
+              style={{
+                animation: isInView
+                  ? "radar-dot-reveal 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards"
+                  : "none",
+                animationDelay: `${900 + index * 65}ms`,
+                opacity: isInView ? 1 : 0,
+              }}
+            >
+              <circle
+                cx={0}
+                cy={0}
+                r={5}
+                fill={categoryColor}
+                stroke={theme.bg}
+                strokeWidth={2}
+              />
+            </g> */}
+            <circle
+              cx={pointX}
+              cy={pointY}
+              r={4}
+              // fill="transparent"
+              fill={categoryColor}
+              style={{ cursor: "pointer" }}
+              onMouseEnter={() => setHoveredSkill(skill)}
+              onMouseLeave={() => setHoveredSkill(null)}
+            />
+          </g>
+        ))}
+
+        {/* Skill labels */}
+        {skillPoints.map(({ skill, labelX, labelY, textAnchor, index }) => (
+          <text
+            key={skill.label}
+            x={labelX}
+            y={labelY + 4}
+            textAnchor={textAnchor}
+            fontFamily="'Fira Code', monospace"
+            fontSize={9.5}
+            fill="rgba(240,238,232,0.5)"
+            style={{
+              animation: isInView
+                ? "radar-label-reveal 0.35s ease-out forwards"
+                : "none",
+              // animationDelay: `${1000 + index * 65}ms`,
+              opacity: isInView ? 1 : 0,
+            }}
+          >
+            {skill.label}
+          </text>
+        ))}
+      </svg>
+
       {hoveredSkill && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
           <div className="font-mono text-[10px] text-[var(--theme-mu)] tracking-[0.1em] mt-0.5">
