@@ -1,5 +1,6 @@
-import { Label, Reveal, SectionTitle } from "../custom";
-import { CONTACT_LINKS, CONTACT_EMAIL } from "../../constants";
+import { ExternalLink, Mail } from "lucide-react";
+import { Button, Label, Reveal, SectionTitle } from "../custom";
+import { CONTACT_LINKS, CONTACT_EMAIL, RESUME_URL } from "../../constants";
 
 export function Contact() {
   return (
@@ -34,9 +35,10 @@ export function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-h
-                className="font-mono text-xs text-[var(--theme-fg)] transition-colors duration-200 hover:text-[var(--theme-acc)]"
+                className="inline-flex items-center gap-2 font-mono text-xs text-[var(--theme-fg)] transition-colors duration-200 hover:text-[var(--theme-acc)]"
               >
-                {value} ↗
+                <span>{value}</span>
+                <ExternalLink className="w-4 h-4" />
               </a>
             </div>
           ))}
@@ -45,39 +47,27 @@ export function Contact() {
           <div className="font-mono text-[9px] tracking-[0.2em] text-[var(--theme-acc)] mb-2.5">
             EMAIL
           </div>
-          <a
+          <Button
             href={`mailto:${CONTACT_EMAIL}`}
-            data-h
-            className="inline-flex items-center gap-2 py-3 px-6 rounded border border-[var(--theme-acc)] text-[var(--theme-acc)] font-mono text-[11px] tracking-[0.12em] no-underline transition-all duration-[220ms] hover:bg-[var(--theme-acc)] hover:text-white"
+            variant="primary"
+            icon={<Mail className="w-4 h-4" />}
+            iconPosition="right"
           >
-            {CONTACT_EMAIL} ↗
-          </a>
+            {CONTACT_EMAIL}
+          </Button>
           <div className="mt-8">
             <div className="font-mono text-[9px] tracking-[0.2em] text-[var(--theme-acc)] mb-2.5">
               RESUME
             </div>
-            <a
-              href="/resume.pdf"
-              download
-              className="inline-flex items-center gap-2 py-3 px-6 rounded border border-[var(--theme-acc)] text-[var(--theme-acc)] font-mono text-[11px] tracking-[0.12em] no-underline transition-all duration-[220ms] hover:bg-[var(--theme-acc)] hover:text-white w-full"
+            <Button
+              href={RESUME_URL}
+              target="_blank"
+              variant="primary"
+              fullWidth
+              icon={<ExternalLink className="w-4 h-4" />}
             >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
-              >
-                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                <polyline points="7,10 12,15 17,10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Download Resume
-            </a>
+              View Resume
+            </Button>
           </div>
         </Reveal>
       </div>

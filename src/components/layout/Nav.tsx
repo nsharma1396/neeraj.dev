@@ -15,12 +15,12 @@ export function Nav({ ready }: NavProps) {
         "flex items-center justify-between px-[5vw]",
         "border-b border-[var(--theme-br)] backdrop-blur-[20px]",
         "transition-opacity duration-[800ms] delay-200",
-        ready ? "opacity-100" : "opacity-0"
+        ready ? "opacity-100" : "opacity-0",
       )}
       style={{ background: "var(--theme-bg)e6" }}
     >
-      <span className="font-sans font-extrabold text-[15px] tracking-[-0.02em] text-[var(--theme-fg)]">
-        NS
+      <span className="font-sans font-extrabold text-[15px] tracking-[-0.02em] text-[var(--theme-fg)] flex items-center gap-2">
+        <img src="/favicon.png" alt="Neeraj Sharma" className="w-14 h-14" />
       </span>
       <div className="flex items-center gap-8">
         {NAV_LINKS.map(({ label, href }) => (

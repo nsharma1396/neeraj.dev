@@ -1,5 +1,8 @@
 import { HeroOrb } from "../visual";
+import { ArrowDown, ArrowRight, ExternalLink } from "lucide-react";
+import { Button } from "../custom";
 import { cn } from "../../lib/utils";
+import { CONTACT_EMAIL, RESUME_URL } from "@/constants";
 
 interface HeroProps {
   ready: boolean;
@@ -16,7 +19,7 @@ export function Hero({ ready }: HeroProps) {
       <div
         className={cn(
           "relative z-[2] max-w-[680px] transition-all duration-[1.1s] delay-100",
-          ready ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          ready ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
         )}
         style={{ transitionTimingFunction: "cubic-bezier(.16,1,.3,1)" }}
       >
@@ -38,45 +41,38 @@ export function Hero({ ready }: HeroProps) {
           applications that perform at scale.
           <br />
           Bengaluru, India.
+          <br />
+          Connect with me at{" "}
+          <a
+            className="underline text-[var(--theme-acc)]"
+            href={`mailto:${CONTACT_EMAIL}`}
+          >
+            {CONTACT_EMAIL}
+          </a>
         </p>
         <div className="flex gap-2.5 flex-wrap">
-          <a
+          <Button
             href="#work"
-            data-h
-            className="font-mono text-[10px] tracking-[0.12em] py-[11px] px-5 rounded-sm border border-[var(--theme-acc)] bg-[var(--theme-acc)] text-white no-underline transition-all duration-[220ms] hover:-translate-y-0.5 hover:shadow-[0_10px_28px_var(--theme-acc)_55]"
+            variant="primary"
+            icon={<ArrowDown className="w-2.5 h-2.5" />}
           >
-            View work ↓
-          </a>
-          <a
+            View work
+          </Button>
+          <Button
             href="#contact"
-            data-h
-            className="font-mono text-[10px] tracking-[0.12em] py-[11px] px-5 rounded-sm border border-[var(--theme-br)] bg-transparent text-[var(--theme-mu)] no-underline transition-all duration-[220ms] hover:border-[var(--theme-fg)]/28 hover:text-[var(--theme-fg)]"
+            variant="ghost"
+            icon={<ArrowRight className="w-2.5 h-2.5" />}
           >
-            Contact →
-          </a>
-          <a
-            href="/resume.pdf"
-            download
-            data-h
-            className="font-mono text-[10px] tracking-[0.12em] py-[11px] px-5 rounded-sm border border-[var(--theme-br)] bg-transparent text-[var(--theme-mu)] no-underline inline-flex items-center gap-1.5 transition-all duration-[220ms] hover:border-[var(--theme-am)]/40 hover:text-[var(--theme-am)]"
+            Contact
+          </Button>
+          <Button
+            href={RESUME_URL}
+            target="_blank"
+            variant="muted"
+            iconRight={<ExternalLink className="w-4 h-4" />}
           >
-            <svg
-              width="11"
-              height="11"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-              <polyline points="7,10 12,15 17,10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
             Resume
-          </a>
+          </Button>
         </div>
       </div>
     </section>

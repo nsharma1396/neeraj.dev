@@ -7,4 +7,5 @@ export {
   CONTACT_LINKS,
   FOOTER_LINKS,
   CONTACT_EMAIL,
+  RESUME_URL,
 } from "./contact";

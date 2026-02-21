@@ -18,14 +18,14 @@ export function NavLink({ label, href }: NavLinkProps) {
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "font-mono text-xs font-medium tracking-[0.12em] no-underline relative pb-0.5 transition-colors duration-200",
-        isHovered ? "text-white" : "text-[var(--theme-fg)]/85"
+        isHovered ? "text-white" : "text-[var(--theme-fg)]/85",
       )}
     >
       {label}
       <span
         className={cn(
           "absolute bottom-0 left-0 h-px rounded-sm transition-all duration-300 ease-out",
-          isHovered ? "w-full shadow-[0_0_8px_var(--theme-acc)]" : "w-0"
+          isHovered ? "w-full shadow-[0_0_8px_var(--theme-acc)]" : "w-0",
         )}
         style={{ background: "var(--theme-acc)" }}
       />

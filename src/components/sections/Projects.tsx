@@ -20,6 +20,13 @@ export function Projects() {
         {PROJECTS.map((project) => (
           <ProjCard key={project.num} {...project} />
         ))}
+        <ProjCard
+          num="05"
+          title="And many more..."
+          desc="Building things at work and on the side. See GitHub."
+          href="https://github.com/nsharma1396?tab=repositories"
+          delay={280}
+        />
       </div>
     </section>
   );

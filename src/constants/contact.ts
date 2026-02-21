@@ -19,3 +19,6 @@ export const FOOTER_LINKS: FooterLink[] = [
 ];
 
 export const CONTACT_EMAIL = "neeraj@neeraj.dev";
+
+export const RESUME_URL =
+  "https://drive.google.com/file/d/1USbvCJFyKgnQfP_FXy834WzOP0fLiXt0/view";
