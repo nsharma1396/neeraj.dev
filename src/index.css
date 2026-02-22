@@ -135,9 +135,11 @@ html {
   scroll-behavior: smooth;
 }
 
-body,
-body a {
-  cursor: none !important;
+@media (min-width: 768px) {
+  body,
+  body a {
+    cursor: none !important;
+  }
 }
 
 .portfolio-root::-webkit-scrollbar {
