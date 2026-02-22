@@ -33,8 +33,9 @@ function AppContent() {
       ["--theme-fg" as string]: theme.fg,
       ["--theme-mu" as string]: theme.mu,
       ["--theme-br" as string]: theme.br,
+      ["--theme-inv" as string]: theme.inv,
     }),
-    [theme]
+    [theme],
   );
 
   return (

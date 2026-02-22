@@ -47,7 +47,7 @@ export function GrainOverlay() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-[1] pointer-events-none w-full h-full opacity-[0.05] mix-blend-overlay"
+      className="fixed inset-0 z-0 md:pointer-events-none w-full h-full opacity-[0.05] mix-blend-overlay"
     />
   );
 }

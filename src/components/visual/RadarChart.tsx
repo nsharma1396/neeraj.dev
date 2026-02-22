@@ -284,7 +284,7 @@ export function RadarChart() {
       </svg>
 
       {hoveredSkill && (
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center md:pointer-events-none">
           <div className="font-mono text-[10px] text-[var(--theme-mu)] tracking-[0.1em] mt-0.5">
             {hoveredSkill.label}
           </div>

@@ -16,7 +16,7 @@ export function Contact() {
           something.
         </SectionTitle>
       </Reveal>
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between flex-col md:flex-row">
         <Reveal delay={80}>
           <p className="font-mono text-xs text-[var(--theme-fg)]/70 leading-[1.9] mb-9">
             Open to interesting problems,

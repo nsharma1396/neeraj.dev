@@ -80,7 +80,8 @@ export function Cursor() {
   }, [theme.acc]);
 
   return (
-    <>
+    // display none for mobile and block for desktop
+    <div className="hidden md:block">
       <div
         ref={dotRef}
         style={{
@@ -101,6 +102,6 @@ export function Cursor() {
             "width .25s, height .25s, border-color .25s, background .25s",
         }}
       />
-    </>
+    </div>
   );
 }

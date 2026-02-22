@@ -33,7 +33,7 @@ export function NoiseOverlay() {
 
   return (
     <div
-      className="fixed inset-0 z-[1] pointer-events-none opacity-[0.03] bg-repeat"
+      className="fixed inset-0 z-0 md:pointer-events-none opacity-[0.03] bg-repeat"
       style={{
         backgroundImage: dataUrl ? `url(${dataUrl})` : undefined,
       }}

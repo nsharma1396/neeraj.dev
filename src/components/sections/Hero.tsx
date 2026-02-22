@@ -10,10 +10,10 @@ interface HeroProps {
 
 export function Hero({ ready }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex flex-col justify-end pt-[54px] px-[5vw] pb-20 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-end pt-0 md:pt-[54px] px-[5vw] pb-20 overflow-hidden">
       <HeroOrb />
       <div
-        className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(ellipse_75%_80%_at_72%_50%,transparent_20%,rgba(7,7,15,.92)_72%)]"
+        className="absolute inset-0 z-[1] md:pointer-events-none bg-[radial-gradient(ellipse_75%_80%_at_72%_50%,transparent_20%,rgba(7,7,15,.92)_72%)]"
         aria-hidden
       />
       <div
@@ -43,8 +43,9 @@ export function Hero({ ready }: HeroProps) {
           Bengaluru, India.
           <br />
           Connect with me at{" "}
+          {/* text color same as theme for desktop and inverted for mobile */}
           <a
-            className="underline text-[var(--theme-acc)]"
+            className="underline font-bold text-[14px] text-[var(--theme-inv)]"
             href={`mailto:${CONTACT_EMAIL}`}
           >
             {CONTACT_EMAIL}

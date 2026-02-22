@@ -8,6 +8,7 @@ export const PALETTES: Palette[] = [
     bg: "#07070f",
     sur: "#0e0e1c",
     fg: "#f0eee8",
+    inv: "#ff8a73",
   },
   {
     name: "Cyan",
@@ -16,6 +17,7 @@ export const PALETTES: Palette[] = [
     bg: "#060c0f",
     sur: "#0b1417",
     fg: "#e8f6fa",
+    inv: "#66e6ff",
   },
   {
     name: "Violet",
@@ -24,14 +26,16 @@ export const PALETTES: Palette[] = [
     bg: "#07070f",
     sur: "#0f0e1c",
     fg: "#f0eef8",
+    inv: "#c4b5fd",
   },
   {
     name: "Lime",
-    acc: "#b8ff47",
+    acc: "#7fc411",
     am: "#47ffd4",
     bg: "#07090a",
     sur: "#0d1209",
     fg: "#eef4e8",
+    inv: "#d4ff8a",
   },
   {
     name: "Gold",
@@ -40,9 +44,9 @@ export const PALETTES: Palette[] = [
     bg: "#090807",
     sur: "#141109",
     fg: "#f8f4e8",
+    inv: "#ffd873",
   },
 ];
-
 export function getColors(paletteIndex: number = 0): ThemeColors {
   const palette = PALETTES[paletteIndex] ?? PALETTES[0];
   return {
@@ -53,5 +57,6 @@ export function getColors(paletteIndex: number = 0): ThemeColors {
     fg: palette.fg,
     mu: "rgba(255,255,255,0.72)",
     br: `${palette.fg}12`,
+    inv: palette.inv,
   };
 }

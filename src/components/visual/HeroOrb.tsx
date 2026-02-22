@@ -31,7 +31,7 @@ export function HeroOrb() {
       45,
       canvas.clientWidth / canvas.clientHeight,
       0.1,
-      100
+      100,
     );
     camera.position.set(0, 0, 5);
 
@@ -40,11 +40,7 @@ export function HeroOrb() {
     const mainLight = new THREE.PointLight(accentColor, 3, 12);
     mainLight.position.set(3, 3, 3);
     scene.add(mainLight);
-    const fillLight = new THREE.PointLight(
-      new THREE.Color(theme.am),
-      1.5,
-      10
-    );
+    const fillLight = new THREE.PointLight(new THREE.Color(theme.am), 1.5, 10);
     fillLight.position.set(-3, -2, 2);
     scene.add(fillLight);
 
@@ -57,7 +53,7 @@ export function HeroOrb() {
     });
     const sphere = new THREE.Mesh(
       new THREE.IcosahedronGeometry(1, 4),
-      sphereMaterial
+      sphereMaterial,
     );
     scene.add(sphere);
 
@@ -68,7 +64,7 @@ export function HeroOrb() {
     });
     const innerRing = new THREE.Mesh(
       new THREE.TorusGeometry(1.65, 0.012, 16, 120),
-      innerRingMaterial
+      innerRingMaterial,
     );
     innerRing.rotation.x = Math.PI / 2.5;
     scene.add(innerRing);
@@ -80,7 +76,7 @@ export function HeroOrb() {
     });
     const outerRing = new THREE.Mesh(
       new THREE.TorusGeometry(2.15, 0.006, 12, 100),
-      outerRingMaterial
+      outerRingMaterial,
     );
     outerRing.rotation.set(Math.PI / 3.5, Math.PI / 6, 0);
     scene.add(outerRing);
@@ -92,7 +88,7 @@ export function HeroOrb() {
     const orbDots: OrbDot[] = Array.from({ length: 5 }, (_, index) => {
       const mesh = new THREE.Mesh(
         new THREE.SphereGeometry(0.045, 8, 8),
-        dotMaterials[index % 2]
+        dotMaterials[index % 2],
       );
       scene.add(mesh);
       return { mesh, ph: (index / 5) * Math.PI * 2 };
@@ -126,7 +122,7 @@ export function HeroOrb() {
         dot.mesh.position.set(
           Math.cos(angle) * 1.65,
           Math.sin(angle * 0.4) * 0.3,
-          Math.sin(angle) * 1.65
+          Math.sin(angle) * 1.65,
         );
       });
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -146,7 +142,7 @@ export function HeroOrb() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full z-[1] pointer-events-none"
+      className="absolute inset-0 w-full h-full z-0 md:pointer-events-none"
     />
   );
 }

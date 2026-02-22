@@ -1,4 +1,8 @@
-import type { ReactNode, AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+import type {
+  ReactNode,
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+} from "react";
 import { cn } from "../../lib/utils";
 
 const variantStyles = {
@@ -15,7 +19,7 @@ const variantStyles = {
 type ButtonVariant = keyof typeof variantStyles;
 
 const baseClassName =
-  "inline-flex items-center justify-center gap-2 font-mono text-[10px] sm:text-[11px] tracking-[0.12em] py-[11px] px-5 rounded-sm no-underline transition-all duration-[220ms] cursor-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 font-mono text-[10px] sm:text-[11px] tracking-[0.12em] py-[11px] px-5 rounded-sm no-underline transition-all duration-[220ms] md:cursor-none disabled:opacity-50";
 
 interface ButtonBaseProps {
   variant?: ButtonVariant;
@@ -73,12 +77,7 @@ export function Button({
   if (isAnchor) {
     const { href, ...rest } = props as ButtonAsAnchor;
     return (
-      <a
-        href={href}
-        data-h
-        className={combinedClassName}
-        {...rest}
-      >
+      <a href={href} data-h className={combinedClassName} {...rest}>
         {content}
       </a>
     );

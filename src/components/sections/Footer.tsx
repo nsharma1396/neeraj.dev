@@ -1,10 +1,11 @@
-import { Copy, ExternalLink } from "lucide-react";
-import { CONTACT_EMAIL, FOOTER_LINKS } from "../../constants";
+import { Copy } from "lucide-react";
+import { CONTACT_EMAIL } from "../../constants";
 import { toast } from "sonner";
 
 export function Footer() {
   return (
-    <footer className="py-12 px-[5vw] pb-8 border-t border-[var(--theme-br)] flex justify-between items-end flex-wrap gap-5">
+    // flex column for mobile and flex row for desktop
+    <footer className="py-12 px-[5vw] pb-8 border-t border-[var(--theme-br)] flex justify-between md:items-end flex-col md:flex-row md:flex-wrap gap-5">
       <div>
         <div className="font-sans text-[38px] font-extrabold tracking-[-0.04em] leading-none mb-1.5">
           Neeraj Sharma
@@ -20,7 +21,8 @@ export function Footer() {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-2 items-end">
+      {/* TODO: add footer links back in */}
+      {/* <div className="flex flex-col gap-2 md:items-end">
         {FOOTER_LINKS.map(({ label, href }) => (
           <a
             key={label}
@@ -34,7 +36,7 @@ export function Footer() {
             <ExternalLink className="w-4 h-4" />
           </a>
         ))}
-      </div>
+      </div> */}
     </footer>
   );
 }

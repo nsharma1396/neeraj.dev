@@ -5,6 +5,7 @@ export interface Palette {
   bg: string;
   sur: string;
   fg: string;
+  inv: string;
 }
 
 export interface ThemeColors {
@@ -15,6 +16,7 @@ export interface ThemeColors {
   fg: string;
   mu: string;
   br: string;
+  inv: string;
 }
 
 export type SkillCategoryName = "Frontend" | "Desktop" | "Backend" | "Infra";
