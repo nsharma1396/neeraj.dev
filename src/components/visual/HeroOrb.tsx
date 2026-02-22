@@ -7,7 +7,7 @@ interface OrbDot {
   ph: number;
 }
 
-export function HeroOrb() {
+export default function HeroOrb() {
   const { theme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
