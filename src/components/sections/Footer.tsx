@@ -21,22 +21,6 @@ export function Footer() {
           />
         </div>
       </div>
-      {/* TODO: add footer links back in */}
-      {/* <div className="flex flex-col gap-2 md:items-end">
-        {FOOTER_LINKS.map(({ label, href }) => (
-          <a
-            key={label}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-h
-            className="inline-flex items-center gap-2 font-mono text-xs text-[var(--theme-mu)] tracking-[0.07em] transition-colors duration-200 hover:text-[var(--theme-acc)] no-underline"
-          >
-            <span>{label}</span>
-            <ExternalLink className="w-4 h-4" />
-          </a>
-        ))}
-      </div> */}
     </footer>
   );
 }

@@ -16,22 +16,7 @@ export function Skills() {
             </SectionTitle>
           </Reveal>
           <Reveal delay={100}>
-            <div className="flex flex-col gap-2">
-              {/* Can add as a legend later */}
-              {/* {Object.entries(SKILL_CATEGORIES).map(
-                ([categoryName, categoryColor]) => (
-                  <div key={categoryName} className="flex items-center gap-2.5">
-                    <div
-                      className="w-[7px] h-[7px] rounded-full shrink-0"
-                      style={{ background: categoryColor }}
-                    />
-                    <span className="font-mono text-[10px] text-[var(--theme-mu)] tracking-[0.1em]">
-                      {categoryName}
-                    </span>
-                  </div>
-                ),
-              )} */}
-            </div>
+            <div className="flex flex-col gap-2"></div>
           </Reveal>
         </div>
         <RadarChart />

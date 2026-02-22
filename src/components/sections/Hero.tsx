@@ -48,7 +48,6 @@ export function Hero({ ready }: HeroProps) {
           Bengaluru, India.
           <br />
           Connect with me at{" "}
-          {/* text color same as theme for desktop and inverted for mobile */}
           <a
             className="underline font-bold text-[14px] text-[var(--theme-inv)]"
             href={`mailto:${CONTACT_EMAIL}`}

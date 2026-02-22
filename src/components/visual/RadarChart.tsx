@@ -226,32 +226,12 @@ export function RadarChart() {
         }
 
         {/* Skill dots */}
-        {skillPoints.map(({ skill, pointX, pointY, categoryColor, index }) => (
+        {skillPoints.map(({ skill, pointX, pointY, categoryColor }) => (
           <g key={skill.label}>
-            {/* <g
-              transform={`translate(${pointX},${pointY})`}
-              style={{
-                animation: isInView
-                  ? "radar-dot-reveal 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards"
-                  : "none",
-                animationDelay: `${900 + index * 65}ms`,
-                opacity: isInView ? 1 : 0,
-              }}
-            >
-              <circle
-                cx={0}
-                cy={0}
-                r={5}
-                fill={categoryColor}
-                stroke={theme.bg}
-                strokeWidth={2}
-              />
-            </g> */}
             <circle
               cx={pointX}
               cy={pointY}
               r={4}
-              // fill="transparent"
               fill={categoryColor}
               style={{ cursor: "pointer" }}
               onMouseEnter={() => setHoveredSkill(skill)}

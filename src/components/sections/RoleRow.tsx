@@ -40,15 +40,17 @@ export function RoleRow({
             {company}
           </span>
         </div>
-        <div className="flex items-center gap-[7px] flex-wrap justify-end">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="font-mono text-[9px] px-2 py-[3px] border border-[var(--theme-br)] rounded-sm text-[var(--theme-mu)] tracking-[0.08em]"
-            >
-              {tag}
-            </span>
-          ))}
+        <div className="flex flex-col items-end gap-[7px] flex-wrap justify-end">
+          <div className="flex items-center gap-[7px] flex-wrap justify-end">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="font-mono text-[9px] px-2 py-[3px] border border-[var(--theme-br)] rounded-sm text-[var(--theme-mu)] tracking-[0.08em]"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
           <span className="font-mono text-[10px] text-[var(--theme-mu)] min-w-[66px] text-right">
             {years}
           </span>

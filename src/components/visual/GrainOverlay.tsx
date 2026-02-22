@@ -26,7 +26,6 @@ export function GrainOverlay() {
       const data = imageData.data;
       for (let pixelIndex = 0; pixelIndex < data.length; pixelIndex += 4) {
         const grayValue = Math.random() * 25;
-        // console.log(pixelIndex, grayValue);
         data[pixelIndex] =
           data[pixelIndex + 1] =
           data[pixelIndex + 2] =
@@ -47,7 +46,7 @@ export function GrainOverlay() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 md:pointer-events-none w-full h-full opacity-[0.05] mix-blend-overlay"
+      className="fixed inset-0 z-0 pointer-events-none w-full h-full opacity-[0.05] mix-blend-overlay"
     />
   );
 }

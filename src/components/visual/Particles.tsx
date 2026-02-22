@@ -110,7 +110,7 @@ export function Particles() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 md:pointer-events-none w-full h-full"
+      className="fixed inset-0 z-0 pointer-events-none w-full h-full"
     />
   );
 }

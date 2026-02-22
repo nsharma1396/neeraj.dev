@@ -5,8 +5,6 @@ import {
   Nav,
   HR,
   Particles,
-  GrainOverlay,
-  NoiseOverlay,
   Hero,
   Work,
   Skills,
@@ -45,8 +43,6 @@ function AppContent() {
     >
       <Cursor />
       <Particles />
-      <GrainOverlay />
-      <NoiseOverlay />
 
       <Nav ready={isReady} />
       <Hero ready={isReady} />
