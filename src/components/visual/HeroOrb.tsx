@@ -22,14 +22,20 @@ export default function HeroOrb() {
     });
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
-    const resize = () =>
-      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    let camera: THREE.PerspectiveCamera | null = null;
+
+    const resize = () => {
+      if (!camera) return;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
     resize();
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
+    camera = new THREE.PerspectiveCamera(
       45,
-      canvas.clientWidth / canvas.clientHeight,
+      window.innerWidth / window.innerHeight,
       0.1,
       100,
     );
@@ -142,7 +148,7 @@ export default function HeroOrb() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full z-0 md:pointer-events-none"
+      className="absolute inset-0 z-0 w-full h-full pointer-events-none"
     />
   );
 }
