@@ -7,10 +7,15 @@ export const CONTACT_LINKS: ContactLink[] = [
     href: "https://github.com/nsharma1396",
   },
   {
-    label: "Legacy Portfolio",
-    value: "nsharma.netlify.app",
-    href: "https://nsharma.netlify.app",
+    label: "LinkedIn",
+    value: "linkedin.com/in/nsharma1396",
+    href: "https://www.linkedin.com/in/nsharma1396/",
   },
+  // {
+  //   label: "Legacy Portfolio",
+  //   value: "nsharma.netlify.app",
+  //   href: "https://nsharma.netlify.app",
+  // },
 ];
 
 export const FOOTER_LINKS: FooterLink[] = [

@@ -1,32 +1,36 @@
-import { Helmet } from "react-helmet-async";
-
 type SEOProps = {
   title?: string;
+  author?: string;
+  jobTitle?: string;
   description?: string;
   url?: string;
   image?: string;
+  twitterUsername?: string;
 };
 const SEO_DATA: SEOProps = {
-  title:
-    "Neeraj Sharma | Staff Frontend Engineer · UI Platforms, Performance, Web & Desktop",
+  title: "Neeraj Sharma",
+  author: "Neeraj Sharma",
+  jobTitle: "Staff Frontend Engineer",
   description:
     "Staff Frontend Engineer with experience building high-performance web and desktop platforms at scale. Specialized in frontend architecture, performance optimization, and design systems.",
   url: "https://neeraj.dev",
   image: "https://neeraj.dev/og-image.png",
+  twitterUsername: "nsharma1396",
 };
 
-const { title, description, url, image } = SEO_DATA;
+const { title, author, jobTitle, description, url, image, twitterUsername } =
+  SEO_DATA;
 
 export function SEO() {
   return (
     <article>
-      <title>Neeraj Sharma</title>
+      <title>{title}</title>
 
       {/* favicon */}
       <link rel="icon" type="image/png" href="/favicon.png" />
 
       <meta name="description" content={description} />
-      <meta name="author" content="Neeraj Sharma" />
+      <meta name="author" content={author} />
       <meta name="robots" content="index, follow" />
 
       <link rel="canonical" href={url} />
@@ -43,6 +47,8 @@ export function SEO() {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+      <meta name="twitter:site" content={`@${twitterUsername}`} />
+      <meta name="twitter:creator" content={`@${twitterUsername}`} />
 
       {/* Theme */}
       <meta name="theme-color" content="#0B0F1A" />
@@ -53,8 +59,8 @@ export function SEO() {
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Person",
-          name: "Neeraj Sharma",
-          jobTitle: "Staff Frontend Engineer",
+          name: author,
+          jobTitle: jobTitle,
           url,
           sameAs: [
             "https://www.linkedin.com/in/nsharma1396/",

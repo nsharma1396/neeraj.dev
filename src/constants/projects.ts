@@ -25,7 +25,7 @@ export const PROJECTS: Project[] = [
   {
     num: "04",
     title: "nsharma.netlify.app",
-    desc: "Legacy personal portfolio — React SPA, still live.",
+    desc: "Legacy personal portfolio — React SPA using Gatsby, still live.",
     href: "https://nsharma.netlify.app",
     badge: "LEGACY",
     delay: 210,
