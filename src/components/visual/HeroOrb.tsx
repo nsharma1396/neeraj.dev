@@ -15,6 +15,9 @@ export default function HeroOrb() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
