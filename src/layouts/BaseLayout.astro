@@ -1,0 +1,63 @@
+---
+const title =
+  "Neeraj Sharma | Staff Frontend Engineer · UI Platforms, Performance, Web & Desktop";
+const description =
+  "Staff Frontend Engineer with experience building high-performance web and desktop platforms at scale. Specialized in frontend architecture, performance optimization, and design systems.";
+const url = "https://neeraj.dev";
+const image = "https://neeraj.dev/og-image.png";
+
+const ldJson = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Neeraj Sharma",
+  jobTitle: "Staff Frontend Engineer",
+  url,
+  sameAs: [
+    "https://www.linkedin.com/in/nsharma1396/",
+    "https://github.com/nsharma1396/",
+  ],
+};
+import "../index.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Fira+Code:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Neeraj Sharma" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={url} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#0B0F1A" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

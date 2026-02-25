@@ -1,20 +1,20 @@
 import { useState, useEffect, useMemo } from "react";
-import { ThemeProvider, useTheme } from "./context/ThemeContext";
+import { ThemeProvider, useTheme } from "../context/ThemeContext";
 import {
   Cursor,
   Nav,
   HR,
   Particles,
   Hero,
-  SEO,
   Work,
   Skills,
   Projects,
   Contact,
   Footer,
-} from "./components";
+} from ".";
+import { Toaster } from "./ui/sonner";
 
-function AppContent() {
+function PortfolioContent() {
   const [isReady, setIsReady] = useState(false);
   const { theme } = useTheme();
 
@@ -44,7 +44,6 @@ function AppContent() {
     >
       <Cursor />
       <Particles />
-      <SEO />
       <Nav ready={isReady} />
       <Hero ready={isReady} />
 
@@ -57,14 +56,15 @@ function AppContent() {
       <HR />
       <Contact />
       <Footer />
+      <Toaster />
     </div>
   );
 }
 
-export default function App() {
+export default function Portfolio() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <PortfolioContent />
     </ThemeProvider>
   );
 }
