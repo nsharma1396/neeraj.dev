@@ -1,5 +1,5 @@
 import { Label, Reveal, SectionTitle } from "../custom";
-import { ProjCard } from "./ProjCard";
+import { ProjectCard } from "./ProjectCard";
 import { PROJECTS } from "../../constants";
 
 export function Projects() {
@@ -18,9 +18,9 @@ export function Projects() {
       </Reveal>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3">
         {PROJECTS.map((project) => (
-          <ProjCard key={project.num} {...project} />
+          <ProjectCard key={project.num} {...project} />
         ))}
-        <ProjCard
+        <ProjectCard
           num="05"
           title="And many more..."
           desc="Building things at work and on the side. See GitHub."

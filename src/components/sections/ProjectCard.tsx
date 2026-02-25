@@ -3,9 +3,9 @@ import { Card, Reveal, useCardHover } from "../custom";
 import { cn } from "../../lib/utils";
 import type { Project } from "../../types";
 
-interface ProjCardProps extends Project {}
+interface ProjectCardProps extends Project {}
 
-function ProjCardContent({
+function ProjectCardContent({
   num,
   title,
   desc,
@@ -47,18 +47,18 @@ function ProjCardContent({
   );
 }
 
-export function ProjCard({
+export function ProjectCard({
   num,
   title,
   desc,
   href,
   badge,
   delay = 0,
-}: ProjCardProps) {
+}: ProjectCardProps) {
   return (
     <Reveal delay={delay}>
       <Card href={href} badge={badge}>
-        <ProjCardContent num={num} title={title} desc={desc} />
+        <ProjectCardContent num={num} title={title} desc={desc} />
       </Card>
     </Reveal>
   );

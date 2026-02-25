@@ -5,7 +5,7 @@ import { Button } from "../custom";
 import { cn } from "../../lib/utils";
 import { CONTACT_EMAIL, RESUME_URL } from "@/constants";
 
-const HeroOrb = lazy(() => import("../visual/HeroOrb"));
+const HeroOrbit = lazy(() => import("../visual/HeroOrbit"));
 
 interface HeroProps {
   ready: boolean;
@@ -13,9 +13,9 @@ interface HeroProps {
 
 export function Hero({ ready }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex flex-col justify-end pt-0 md:pt-[54px] px-[5vw] pb-20 overflow-hidden">
+    <section className="relative min-h-screen min-h-dvh flex flex-col justify-end pt-0 md:pt-[54px] px-[5vw] pb-20 overflow-hidden">
       <Suspense fallback={null}>
-        <HeroOrb />
+        <HeroOrbit />
       </Suspense>
       <div
         className="absolute inset-0 z-[1] md:pointer-events-none bg-[radial-gradient(ellipse_75%_80%_at_72%_50%,transparent_20%,rgba(7,7,15,.92)_72%)]"

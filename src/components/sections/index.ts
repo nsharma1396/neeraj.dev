@@ -5,4 +5,4 @@ export { Projects } from "./Projects";
 export { Contact } from "./Contact";
 export { Footer } from "./Footer";
 export { RoleRow } from "./RoleRow";
-export { ProjCard } from "./ProjCard";
+export { ProjectCard } from "./ProjectCard";

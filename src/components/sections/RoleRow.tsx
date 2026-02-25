@@ -28,17 +28,21 @@ export function RoleRow({
         )}
       >
         <div className="flex items-baseline gap-3.5 flex-wrap">
-          <span
-            className={cn(
-              "font-sans text-[clamp(15px,2vw,20px)] font-bold tracking-[-0.02em] transition-colors duration-200",
-              isHovered ? "text-[var(--theme-acc)]" : "text-[var(--theme-fg)]",
-            )}
-          >
-            {title}
-          </span>
-          <span className="font-mono text-[10px] text-[var(--theme-mu)] tracking-[0.06em]">
-            {company}
-          </span>
+          <div className="flex flex-col items-start gap-[7px] flex-wrap justify-start">
+            <span
+              className={cn(
+                "font-sans text-[clamp(15px,2vw,20px)] font-bold tracking-[-0.02em] transition-colors duration-200",
+                isHovered
+                  ? "text-[var(--theme-acc)]"
+                  : "text-[var(--theme-fg)]",
+              )}
+            >
+              {title}
+            </span>
+            <span className="font-mono text-[10px] text-[var(--theme-mu)] tracking-[0.06em]">
+              {company}
+            </span>
+          </div>
         </div>
         <div className="flex flex-col items-end gap-[7px] flex-wrap justify-end">
           <div className="flex items-center gap-[7px] flex-wrap justify-end">

@@ -2,12 +2,12 @@ import { useRef, useEffect } from "react";
 import * as THREE from "three";
 import { useTheme } from "../../context/ThemeContext";
 
-interface OrbDot {
-  mesh: THREE.Mesh;
+interface HeroOrbitDot {
+  mesh: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>;
   ph: number;
 }
 
-export default function HeroOrb() {
+export default function HeroOrbit() {
   const { theme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -94,14 +94,17 @@ export default function HeroOrb() {
       new THREE.MeshBasicMaterial({ color: accentColor }),
       new THREE.MeshBasicMaterial({ color: new THREE.Color(theme.am) }),
     ];
-    const orbDots: OrbDot[] = Array.from({ length: 5 }, (_, index) => {
-      const mesh = new THREE.Mesh(
-        new THREE.SphereGeometry(0.045, 8, 8),
-        dotMaterials[index % 2],
-      );
-      scene.add(mesh);
-      return { mesh, ph: (index / 5) * Math.PI * 2 };
-    });
+    const heroOrbitDots: HeroOrbitDot[] = Array.from(
+      { length: 5 },
+      (_, index) => {
+        const mesh = new THREE.Mesh(
+          new THREE.SphereGeometry(0.045, 8, 8),
+          dotMaterials[index % 2],
+        );
+        scene.add(mesh);
+        return { mesh, ph: (index / 5) * Math.PI * 2 };
+      },
+    );
 
     const mousePosition = { x: 0, y: 0 };
     const handleMouseMove = (event: MouseEvent) => {
@@ -126,7 +129,7 @@ export default function HeroOrb() {
       outerRing.rotation.z = timeSeconds * 0.12;
       sphereMaterial.emissiveIntensity =
         0.3 + Math.sin(timeSeconds * 1.2) * 0.15;
-      orbDots.forEach((dot) => {
+      heroOrbitDots.forEach((dot: HeroOrbitDot) => {
         const angle = timeSeconds * 0.65 + dot.ph;
         dot.mesh.position.set(
           Math.cos(angle) * 1.65,
