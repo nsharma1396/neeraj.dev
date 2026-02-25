@@ -6,6 +6,7 @@ import {
   HR,
   Particles,
   Hero,
+  SEO,
   Work,
   Skills,
   Projects,
@@ -43,7 +44,7 @@ function AppContent() {
     >
       <Cursor />
       <Particles />
-
+      <SEO />
       <Nav ready={isReady} />
       <Hero ready={isReady} />
 

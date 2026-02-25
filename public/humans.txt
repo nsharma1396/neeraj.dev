@@ -1,0 +1,14 @@
+/* TEAM */
+Neeraj Sharma: Staff Frontend Engineer
+
+/* SITE */
+Last update: February 2026
+Language: English
+Site: https://neeraj.dev
+
+/* THANKS */
+Built with React, TypeScript, Vite, Tailwind CSS
+
+/* CONTACT */
+LinkedIn: https://www.linkedin.com/in/nsharma1396/
+GitHub: https://github.com/nsharma1396/
