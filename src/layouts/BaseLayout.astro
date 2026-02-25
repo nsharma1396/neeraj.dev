@@ -1,16 +1,23 @@
 ---
-const title =
-  "Neeraj Sharma | Staff Frontend Engineer · UI Platforms, Performance, Web & Desktop";
-const description =
-  "Staff Frontend Engineer with experience building high-performance web and desktop platforms at scale. Specialized in frontend architecture, performance optimization, and design systems.";
-const url = "https://neeraj.dev";
-const image = "https://neeraj.dev/og-image.png";
+const SEO_DATA = {
+  title: "Neeraj Sharma",
+  author: "Neeraj Sharma",
+  jobTitle: "Staff Frontend Engineer",
+  description:
+    "Staff Frontend Engineer with experience building high-performance web and desktop platforms at scale. Specialized in frontend architecture, performance optimization, and design systems.",
+  url: "https://neeraj.dev",
+  image: "https://neeraj.dev/og-image.png",
+  twitterUsername: "nsharma1396",
+};
+
+const { title, author, jobTitle, description, url, image, twitterUsername } =
+  SEO_DATA;
 
 const ldJson = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Neeraj Sharma",
-  jobTitle: "Staff Frontend Engineer",
+  name: author,
+  jobTitle: jobTitle,
   url,
   sameAs: [
     "https://www.linkedin.com/in/nsharma1396/",
@@ -23,18 +30,25 @@ import "../index.css";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <link rel="icon" type="image/png" href="/favicon.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Fira+Code:wght@300;400&display=swap"
       rel="stylesheet"
     />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>{title}</title>
+
     <meta name="description" content={description} />
-    <meta name="author" content="Neeraj Sharma" />
+    <meta name="author" content={author} />
     <meta name="robots" content="index, follow" />
+
     <link rel="canonical" href={url} />
 
     <!-- Open Graph -->
@@ -49,6 +63,8 @@ import "../index.css";
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
+    <meta name="twitter:site" content={`@${twitterUsername}`} />
+    <meta name="twitter:creator" content={`@${twitterUsername}`} />
 
     <!-- Theme -->
     <meta name="theme-color" content="#0B0F1A" />
